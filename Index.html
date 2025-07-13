@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Malla Curricular Interactiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    .semestre {
+      background-color: #e3f2fd;
+      padding: 10px;
+      border-radius: 12px;
+      border: 2px solid #2196f3;
+    }
+    .semestre h2 {
+      text-align: center;
+      font-size: 16px;
+    }
+    .curso {
+      margin: 8px 0;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .curso:hover {
+      background-color: #e0f7fa;
+    }
+    .curso.bloqueado {
+      background-color: #cfd8dc;
+      color: #757575;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Malla Curricular - Interactiva</h1>
+
+<div class="grid">
+  <!-- Semestre I -->
+  <div class="semestre">
+    <h2>I Semestre</h2>
+    <div class="curso" id="FundamentosEnf1" data-desbloquea="DesempeñoProf1">Fundamentos de Enfermería I</div>
+    <div class="curso" id="Quimica" data-desbloquea="Bioquimica">Química General y Orgánica</div>
+    <div class="curso" id="BiologiaCelular" data-desbloquea="Histologia,Anatomia,Fisiologia,BiologiaEmbriologia,Bioquimica">Biología Celular y Genética</div>
+    <div class="curso" id="Matematicas" data-desbloquea="Investigacion1">Matemáticas</div>
+    <div class="curso" id="Fisica" data-desbloquea="Fisiologia,Investigacion1">Física</div>
+    <div class="curso" id="Sociales1" data-desbloquea="Sociales2">Ciencias Sociales y Salud I</div>
+    <div class="curso" id="Educacion1" data-desbloquea="Educacion2,ClinicaComunitaria">Educación en Salud I</div>
+    <div class="curso" id="Ingles1" data-desbloquea="Ingles2">Inglés I</div>
+  </div>
+
+  <!-- Semestre II -->
+  <div class="semestre">
+    <h2>II Semestre</h2>
+    <div class="curso bloqueado" id="SaludComunitaria1" data-desbloquea="SaludComunitaria2,ClinicaComunitaria">Salud Comunitaria I</div>
+    <div class="curso bloqueado" id="DesempeñoProf1" data-desbloquea="Neonatologia1">Integración al Desempeño Profesional I</div>
+    <div class="curso bloqueado" id="Bioquimica" data-desbloquea="Farmacologia">Bioquímica</div>
+    <div class="curso bloqueado" id="BiologiaEmbriologia" data-desbloquea="Obstetricia1">Biología del Desarrollo y Embriología Humana</div>
+    <div class="curso bloqueado" id="Fisiologia" data-desbloquea="Enfermeria2,Agentes,Neonatologia1,FisiologiaSistemas,Obstetricia1,Inmunologia">Fisiología General</div>
+    <div class="curso bloqueado" id="Anatomia" data-desbloquea="Ginecologia,Enfermeria2,Agentes,Neonatologia1,Obstetricia1">Anatomía</div>
+    <div class="curso bloqueado" id="Histologia" data-desbloquea="Ginecologia,Enfermeria2,Agentes,Neonatologia1,Obstetricia1">Histología</div>
+    <div class="curso bloqueado" id="Ingles2" data-desbloquea="Ingles3">Inglés II</div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.curso').forEach(curso => {
+    curso.addEventListener('click', () => {
+      const desbloquear = curso.dataset.desbloquea?.split(',');
+      if (!desbloquear) return;
+      desbloquear.forEach(id => {
+        const cursoDesbloqueado = document.getElementById(id.trim());
+        if (cursoDesbloqueado) {
+          cursoDesbloqueado.classList.remove('bloqueado');
+        }
+      });
+      curso.style.backgroundColor = "#b2dfdb";
+    });
+  });
+</script>
+
+</body>
+</html>
